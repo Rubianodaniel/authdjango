@@ -22,20 +22,25 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django.contrib.auth',
+
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 
+    'crispy_forms',
+
     "autentication"
 
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +57,7 @@ ROOT_URLCONF = 'portafolio_daniel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,7 +79,6 @@ AUTHENTICATION_BACKENDS = [
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
-
 ]
 
 WSGI_APPLICATION = 'portafolio_daniel.wsgi.application'
@@ -132,9 +136,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+### variable para hacer envio de correo de pruebas a la consola
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS =True
-ACCOUNT_AUTHENTICATION_METHOD = True
-ACCOUNT_EMAIL_REQUIRED =True
+# ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS =True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 7
+ACCOUNT_LOGOUT_ON_GET = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
